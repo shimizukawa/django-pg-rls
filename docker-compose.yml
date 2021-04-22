@@ -20,6 +20,7 @@ services:
 
   db:
     image: postgres:13
+    tty: true
     environment:
       POSTGRES_USER: db
       POSTGRES_PASSWORD: root
