@@ -1,0 +1,32 @@
+version: '3'
+
+services:
+  rls:
+    build:
+      context: ./rls
+      dockerfile: Dockerfile
+    ports:
+      - 8000:8000
+    volumes:
+      - ./rls:/rls
+    depends_on:
+      - db
+    command: sh -c "python manage.py runserver 0.0.0.0:8000"
+    tty: true
+    environment:
+      DJANGO_SETTINGS_MODULE: config.settings
+      DEBUG: 'True'
+      DATABASE_URL: psql://db:root@db:5432/db
+
+  db:
+    image: postgres:13
+    environment:
+      POSTGRES_USER: db
+      POSTGRES_PASSWORD: root
+    volumes:
+      - pg_data:/var/lib/postgresql/data
+      - ./pg/initdb.d:/docker-entrypoint-initdb.d
+
+volumes:
+  pg_data:
+      driver: local
