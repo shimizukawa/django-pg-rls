@@ -12,8 +12,9 @@ class Migration(migrations.Migration):
     operations = [
         # データ投入より先に必要なロールを作成
         migrations.RunSQL("CREATE ROLE tenantuser;"),
-        # アプリからデータアクセスを許可する（django_admin_logは必須）
+        # アプリからデータアクセスを許可する（django_session, django_admin_logは必須）
         migrations.RunSQL("""
+            GRANT select, insert, delete ON django_session TO tenantuser;
             GRANT select, insert ON django_admin_log TO tenantuser;
             GRANT select, insert ON django_content_type TO tenantuser;
             GRANT select, insert ON auth_group TO tenantuser;

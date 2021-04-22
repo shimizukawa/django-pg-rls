@@ -10,14 +10,21 @@ def migrate_data(apps, schema_editor):
     TenantUser = apps.get_model('app1', 'TenantUser')
     Customer = apps.get_model('app1', 'Customer')
 
+    # Admin
+    TenantUser.objects.create_superuser('admin', password='admin')
+
+    # Tenant1
     t1 = Tenant.objects.create(realm='beproud', name='BeProud Inc.')
     on_create_tenant('', t1, True)
     TenantUser.objects.create_superuser('haru', password='haru', tenant=t1)
     TenantUser.objects.create_superuser('shimizukawa', password='shimizukawa', tenant=t1)
+
+    # Tenant2
     t2 = Tenant.objects.create(realm='cmscom', name='CMS Com')
     on_create_tenant('', t2, True)
     TenantUser.objects.create_superuser('terada', password='terada', tenant=t2)
 
+    # Customers
     for i in range(10):
         t = choice([t1, t2])
         dmy = chr(ord('a')+i)*2
