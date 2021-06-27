@@ -17,7 +17,7 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='Tenant',
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
+                ('tenant_id', models.BigAutoField(primary_key=True, serialize=False, verbose_name='ID')),
                 ('realm', models.CharField(max_length=32, unique=True)),
                 ('name', models.CharField(max_length=128)),
             ],

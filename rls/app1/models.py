@@ -10,6 +10,7 @@ class Tenant(models.Model):
         verbose_name = 'Tenant'
         verbose_name_plural = 'Tenants'
 
+    tenant_id = models.BigAutoField("ID", primary_key=True)
     realm = models.CharField(max_length=32, unique=True)
     name = models.CharField(max_length=128)
 

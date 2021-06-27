@@ -114,7 +114,7 @@ AUTH_PASSWORD_VALIDATORS = [
 AUTH_USER_MODEL = 'app1.TenantUser'
 
 RLS_ROLE_NAME = 'tenantuser'
-RLS_SHARED_TABLE_NAMES = ('django_session', 'django_admin_log', 'django_content_type', 'auth_group', 'auth_permission')
+RLS_SECURE_TABLE_NAMES = ('tenants', 'customers', 'tenant_users')
 
 # Internationalization
 # https://docs.djangoproject.com/en/3.1/topics/i18n/

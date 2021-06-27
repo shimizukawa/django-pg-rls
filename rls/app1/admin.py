@@ -19,7 +19,7 @@ class CustomerAdmin(admin.ModelAdmin):
 # create db role for RLS control. see: https://scrapbox.io/shimizukawa/Django_PG_RLS
 def on_create_tenant(sender, instance, created, **kwargs):
     if created:
-        tenant_id = instance.id
+        tenant_id = instance.tenant_id
         with connection.cursor() as cursor:
             cursor.execute(f'CREATE ROLE "{tenant_id}"')
             cursor.execute(f'GRANT {settings.RLS_ROLE_NAME} TO "{tenant_id}"')
@@ -30,7 +30,7 @@ post_save.connect(on_create_tenant, sender=models.Tenant)
 
 def on_delete_tenant(sender, instance, using, **kwargs):
     """削除時にはROLEも削除しておく"""
-    tenant_id = instance.id
+    tenant_id = instance.tenant_id
     with connection.cursor() as cursor:
         cursor.execute(f'REVOKE {settings.RLS_ROLE_NAME} FROM "{tenant_id}"')
         cursor.execute(f'DROP ROLE "{tenant_id}"')

@@ -41,6 +41,9 @@ def reverse_data(apps, schema_editor):
         on_delete_tenant('', obj, False)
     Tenant.objects.filter(realm__in=['beproud', 'cmscom']).delete()
 
+    TenantUser = apps.get_model('app1', 'TenantUser')
+    TenantUser.objects.all().delete()
+
 
 class Migration(migrations.Migration):
 

@@ -6,19 +6,20 @@ from django.conf import settings
 
 def get_grant_sql():
     """GRANT用SQL"""
-    sql = '\n'.join([
-        f"GRANT select, insert, delete ON {tbl} TO {settings.RLS_ROLE_NAME};"
-        for tbl in settings.RLS_SHARED_TABLE_NAMES
-    ])
+    # FIXME: このGRANTは新しいテーブルが追加される毎に実行が必要
+    sql = f"""
+        GRANT ALL ON ALL TABLES IN SCHEMA public TO {settings.RLS_ROLE_NAME};
+        GRANT ALL ON ALL SEQUENCES IN SCHEMA public TO {settings.RLS_ROLE_NAME};
+    """
     return sql
 
 
 def get_revoke_sql():
     """REVOKE用SQL"""
-    sql = '\n'.join([
-        f"REVOKE select, insert, delete ON {tbl} FROM {settings.RLS_ROLE_NAME};"
-        for tbl in settings.RLS_SHARED_TABLE_NAMES
-    ])
+    sql = f"""
+        REVOKE ALL ON ALL SEQUENCES IN SCHEMA public FROM {settings.RLS_ROLE_NAME};
+        REVOKE ALL ON ALL TABLES IN SCHEMA public FROM {settings.RLS_ROLE_NAME};
+    """
     return sql
 
 
