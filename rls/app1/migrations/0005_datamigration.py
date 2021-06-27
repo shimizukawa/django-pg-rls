@@ -22,6 +22,7 @@ def migrate_data(apps, schema_editor):
     on_create_tenant('', t1, True)
     TenantUser.objects.create_superuser('haru', password='haru', tenant=t1)
     TenantUser.objects.create_superuser('shimizukawa', password='shimizukawa', tenant=t1)
+    TenantUser.objects.create_superuser('takanory', password='takanory', tenant=t1)
 
     # Tenant2
     t2 = Tenant.objects.create(realm='cmscom', name='CMS Com')
