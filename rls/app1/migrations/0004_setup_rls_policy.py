@@ -31,6 +31,7 @@ def get_rls_teardown_sql(table_names):
     ])
     return sql
 
+
 class Migration(migrations.Migration):
 
     dependencies = [

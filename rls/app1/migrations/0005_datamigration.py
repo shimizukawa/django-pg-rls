@@ -52,7 +52,7 @@ def reverse_data(apps, schema_editor):
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('app1', '0004_grant_roles'),
+        ('app1', '0004_setup_rls_policy'),
     ]
 
     operations = [
