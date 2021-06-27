@@ -22,7 +22,7 @@ $ docker-compose up
 ### DB migration
 
 ```
-$ docker-compose exec rls python3 manage.py migrate
+$ docker-compose exec dj python3 manage.py migrate
 ```
 
 ### access
@@ -34,7 +34,12 @@ $ docker-compose exec rls python3 manage.py migrate
 
 ### containers
 
-* rls (django)
+* dj (django)
     * http://localhost:8000/
 * db (postgres)
     * ID/password: `root`/`root`
+
+### DB console
+```
+$ docker-compose exec db psql -U db
+```

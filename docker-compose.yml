@@ -1,7 +1,7 @@
 version: '3'
 
 services:
-  rls:
+  dj:
     build:
       context: ./rls
       dockerfile: Dockerfile
@@ -24,6 +24,8 @@ services:
     environment:
       POSTGRES_USER: db
       POSTGRES_PASSWORD: root
+    ports:
+      - 5432:5432  # for DEBUG
     volumes:
       - pg_data:/var/lib/postgresql/data
       - ./pg/initdb.d:/docker-entrypoint-initdb.d

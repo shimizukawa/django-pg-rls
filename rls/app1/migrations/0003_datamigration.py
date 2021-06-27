@@ -2,7 +2,7 @@
 
 from random import choice
 from django.db import migrations
-from app1.admin import on_create_tenant
+from app1.admin import on_create_tenant, on_delete_tenant
 
 
 def migrate_data(apps, schema_editor):
@@ -35,9 +35,11 @@ def migrate_data(apps, schema_editor):
 
 
 def reverse_data(apps, schema_editor):
+    """削除時にはROLEも削除しておく"""
     Tenant = apps.get_model('app1', 'Tenant')
+    for obj in Tenant.objects.filter(realm__in=['beproud', 'cmscom']):
+        on_delete_tenant('', obj, False)
     Tenant.objects.filter(realm__in=['beproud', 'cmscom']).delete()
-    # FIXME: 削除時にはROLEも削除しておきたい（残っててもよい）
 
 
 class Migration(migrations.Migration):
