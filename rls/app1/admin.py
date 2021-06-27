@@ -1,4 +1,5 @@
 from django.contrib import admin
+from django.contrib.auth.admin import UserAdmin
 from django.db.models.signals import post_save, pre_delete
 from django.db import connection
 from django.conf import settings
@@ -7,7 +8,18 @@ from . import models
 
 
 admin.site.register(models.Tenant)
-admin.site.register(models.TenantUser)
+
+
+@admin.register(models.TenantUser)
+class TenantUserAdmin(UserAdmin):
+    fieldsets = (
+        (None, {'fields': ('tenant',)}),
+    ) + UserAdmin.fieldsets
+    add_fieldsets = (
+        (None, {'fields': ('tenant',)}),
+    ) + UserAdmin.add_fieldsets
+    list_display = UserAdmin.list_display + ('tenant',)
+    list_filter = UserAdmin.list_display + ('tenant',)
 
 
 @admin.register(models.Customer)
