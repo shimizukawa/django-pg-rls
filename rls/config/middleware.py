@@ -2,7 +2,7 @@ from django.db import connection
 
 
 # set db role for RLS control. see: https://scrapbox.io/shimizukawa/Django_PG_RLS
-class RlsMiddleware(object):
+class RlsMiddleware:
     def __init__(self, get_response):
         self.get_response = get_response
 
